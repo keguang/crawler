@@ -5,6 +5,7 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 import base64
+import json
 import random
 import time
 import requests
@@ -21,7 +22,7 @@ from scrapy.http.response.html import HtmlResponse
 
 class ProxyMiddleWare(HttpProxyMiddleware):
     def process_request(self, request, spider):
-        proxy_result = requests.get("http://10.20.88.46:8080/proxy/proxy_list")
+        proxy_result = requests.get("http://192.168.0.1:8080/proxy/proxy_list") #代理ip池
         proxy_map = json.loads(proxy_result.content)
         proxy_list =  proxy_map['data']['proxy_list']
         random_proxy_index = random.randint(0,len(proxy_list)-1)

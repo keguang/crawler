@@ -10,10 +10,11 @@ class YingYongBaoPipeline(object):
     Base.metadata.create_all(engine)
 
     def process_item(self, item, spider):
-        model = ttsrc.YingYongBao(
-            name=item['name'],
-        )
-        session = loadSession()
-        session.add(model)
-        session.commit()
-        return item
+        if spider.name=='yingyongbao':
+            model = ttsrc.YingYongBao(
+                name=item['name'],
+            )
+            session = loadSession()
+            session.add(model)
+            session.commit()
+            return item
